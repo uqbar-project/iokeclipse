@@ -120,4 +120,25 @@
       </perspective>
    </extension>
 
+<extension point="org.eclipse.ui.popupMenus"> 
+	<viewerContribution 
+    	  id="org.uqbar.iokeclipse.action.contribution.popup.editor"
+   			targetID="#TextEditorContext"> 
+   <action
+         id="org.eclipse.ui.articles.action.contribution.editor.action1" 
+         label="Evaluate"
+         icon="icons/run_icon.png"
+      	 menubarPath="org.uqbar.iokeclipse.iokemenu/group1" 
+      	 class="org.uqbar.iokeclipse.editor.actions.EvaluateSelectionActionDelegate"> 
+      </action>
+   <menu
+         id="org.uqbar.iokeclipse.iokemenu"
+         label="Ioke"
+         path="additions">
+         <separator name="group1"/>
+   </menu> 
+   </viewerContribution> 
+</extension>
+
+
 </plugin>

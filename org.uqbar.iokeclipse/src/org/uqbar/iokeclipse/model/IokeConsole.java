@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.uqbar.iokeclipse.IokeActivator;
 
 /**
@@ -30,9 +32,14 @@ public class IokeConsole extends OutputStream {
 	}
 	
 	public Object evaluate(String text) throws ControlFlow {
-		Object result = this.getRuntime().evaluateString(text + "\n");
-		this.commandsHistory.add(text);
-		return result;
+		try {
+			Object result = this.getRuntime().evaluateString(text + "\n");
+			this.commandsHistory.add(text);
+			this.write(("\n" + result).getBytes());
+			return result;
+		} catch (IOException e) {
+			throw new RuntimeException("Error while writing the result to console", e);
+		}
 	}
 	
 	public List<String> getCommandsHistory() {

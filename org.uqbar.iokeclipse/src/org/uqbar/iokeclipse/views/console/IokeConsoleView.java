@@ -67,10 +67,9 @@ public class IokeConsoleView extends ViewPart implements IokeConsoleListener {
 	
 	protected void evaluateInput() {
 		try {
-			Object result = getConsole().evaluate(inputTextArea.getText());
+			getConsole().evaluate(inputTextArea.getText());
 			this.inputTextArea.setText("");
 			this.inputTextArea.setSelection(0);
-			this.consoleTextArea.setText(this.consoleTextArea.getText() + "\n" + result);
 		} catch (ControlFlow e) {
 			this.consoleTextArea.setText(this.consoleTextArea.getText() + "\n" + e.getMessage());
 		}

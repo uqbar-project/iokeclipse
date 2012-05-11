@@ -73,6 +73,8 @@ public class IokeConsoleView extends ViewPart implements IokeConsoleListener {
 		} catch (ControlFlow e) {
 			this.consoleTextArea.setText(this.consoleTextArea.getText() + "\n" + e.getMessage());
 		}
+		
+		this.consoleTextArea.setTopIndex(Integer.MAX_VALUE);
 	}
 
 	protected void createTextArea(Composite parent) {

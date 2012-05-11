@@ -66,15 +66,17 @@ public class IokeConsoleView extends ViewPart implements IokeConsoleListener {
 	}
 	
 	protected void evaluateInput() {
-		try {
-			getConsole().evaluate(inputTextArea.getText());
-			this.inputTextArea.setText("");
-			this.inputTextArea.setSelection(0);
-		} catch (ControlFlow e) {
-			this.consoleTextArea.setText(this.consoleTextArea.getText() + "\n" + e.getMessage());
+		String input = inputTextArea.getText();
+		if (input.length() > 0) {
+			try {
+				getConsole().evaluate(input);
+				this.inputTextArea.setText("");
+				this.inputTextArea.setSelection(0);
+			} catch (ControlFlow e) {
+				this.consoleTextArea.setText(this.consoleTextArea.getText() + e.getMessage() + "\n" );
+				this.consoleTextArea.setTopIndex(Integer.MAX_VALUE);
+			}
 		}
-		
-		this.consoleTextArea.setTopIndex(Integer.MAX_VALUE);
 	}
 
 	protected void createTextArea(Composite parent) {
@@ -100,6 +102,7 @@ public class IokeConsoleView extends ViewPart implements IokeConsoleListener {
 		// directly to the StyledTextContent
 		// but just for now, as a prototype
 		this.consoleTextArea.setText(buffer.toString());
+		this.consoleTextArea.setTopIndex(Integer.MAX_VALUE);
 	}
 
 	@Override

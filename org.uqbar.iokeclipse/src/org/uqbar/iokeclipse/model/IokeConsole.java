@@ -35,7 +35,7 @@ public class IokeConsole extends OutputStream {
 		try {
 			Object result = this.getRuntime().evaluateString(text + "\n");
 			this.commandsHistory.add(text);
-			this.write(("\n" + result).getBytes());
+			this.write((result + "\n").getBytes());
 			return result;
 		} catch (IOException e) {
 			throw new RuntimeException("Error while writing the result to console", e);

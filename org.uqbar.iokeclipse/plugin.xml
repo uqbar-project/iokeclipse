@@ -2,6 +2,8 @@
 <?eclipse version="3.4"?>
 <plugin>
 
+<!-- VIEWS -->
+
    <extension
          point="org.eclipse.ui.views">
       <category
@@ -93,24 +95,6 @@
       </perspectiveExtension>
    </extension>
    <extension
-         point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml">
-      </contexts>
-      <contexts
-            file="contexts.xml">
-      </contexts>
-      <contexts
-            file="contexts.xml">
-      </contexts>
-      <contexts
-            file="contexts.xml">
-      </contexts>
-      <contexts
-            file="contexts.xml">
-      </contexts>
-   </extension>
-   <extension
          point="org.eclipse.ui.perspectives">
       <perspective
             class="org.uqbar.iokeclipse.perspectives.IokePerspective"
@@ -144,8 +128,172 @@
          path="additions">
          <separator name="group1"/>
    </menu> 
-   </viewerContribution> 
+   </viewerContribution>
+ <objectContribution
+       adaptable="true"
+       id="org.uqbar.iokeclipse.contribution1"
+       nameFilter="*"
+       objectClass="org.eclipse.core.resources.IProject">
+    <action
+          class="org.uqbar.iokeclipse.builder.ToggleNatureAction"
+          enablesFor="+"
+          id="org.uqbar.iokeclipse.addRemoveNatureAction"
+          label="Add/Remove Sample Nature"
+          menubarPath="additions">
+    </action>
+ </objectContribution> 
 </extension>
+<extension
+      point="org.eclipse.ui.bindings">
+   <key
+         contextId="org.eclipse.ui.contexts.window"
+         schemeId="org.uqbar.iokeclipse.key1"
+         sequence="org.uqbar.iokeclipse.key1">
+   </key>
+   <key
+         commandId="org.uqbar.iokeclipse.commands.sampleCommand"
+         contextId="org.eclipse.ui.contexts.window"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="M1+6">
+   </key>
+</extension>
+<extension
+      point="org.eclipse.ui.commands">
+   <category
+         id="org.uqbar.iokeclipse.commands.category"
+         name="Sample Category">
+   </category>
+   <command
+         categoryId="org.uqbar.iokeclipse.commands.category"
+         id="org.uqbar.iokeclipse.commands.sampleCommand"
+         name="Sample Command">
+   </command>
+</extension>
+<extension
+      point="org.eclipse.ui.handlers">
+   <handler
+         class="org.uqbar.iokeclipse.editor.command.evaluateSelection.EvaluateTextSelection"
+         commandId="org.uqbar.iokeclipse.commands.sampleCommand">
+   </handler>
+</extension>
+<extension
+      point="org.eclipse.ui.menus">
+   <menuContribution
+         locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+      <menu
+            id="org.uqbar.iokeclipse.menus.sampleMenu"
+            label="Sample Menu"
+            mnemonic="M">
+         <command
+               commandId="org.uqbar.iokeclipse.commands.sampleCommand"
+               id="org.uqbar.iokeclipse.menus.sampleCommand"
+               mnemonic="S">
+         </command>
+      </menu>
+   </menuContribution>
+   <menuContribution
+         locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+      <toolbar
+            id="org.uqbar.iokeclipse.toolbars.sampleToolbar">
+         <command
+               commandId="org.uqbar.iokeclipse.commands.sampleCommand"
+               icon="icons/sample.gif"
+               id="org.uqbar.iokeclipse.toolbars.sampleCommand"
+               tooltip="Say hello world">
+         </command>
+      </toolbar>
+   </menuContribution>
+</extension>
+<extension
+      id="iokeBuilder"
+      name="Ioke Builder"
+      point="org.eclipse.core.resources.builders">
+   <builder
+         hasNature="true">
+      <run
+            class="org.uqbar.iokeclipse.builder.IokeBuilder">
+      </run>
+   </builder>
+</extension>
+<extension
+      id="IokeNature"
+      name="Ioke Project Nature"
+      point="org.eclipse.core.resources.natures">
+   <runtime>
+      <run
+            class="org.uqbar.iokeclipse.builder.IokeNature">
+      </run>
+   </runtime>
+   <builder
+         id="org.uqbar.iokeclipse.iokeBuilder">
+   </builder>
+</extension>
+<extension
+      id="xmlProblem"
+      name="XML Problem"
+      point="org.eclipse.core.resources.markers">
+   <super
+         type="org.eclipse.core.resources.problemmarker">
+   </super>
+   <persistent
+         value="true">
+   </persistent>
+</extension>
+<extension
+      point="org.eclipse.ui.newWizards">
+   <category
+         id="org.uqbar.iokeclipse"
+         name="Ioke">
+   </category>
+   <wizard
+         category="org.uqbar.iokeclipse"
+         class="org.uqbar.iokeclipse.wizards.newfile.IokeNewFileWizard"
+         icon="icons/kind.png"
+         id="org.uqbar.iokeclipse.wizards.newfile.IokeNewFileWizard"
+         name="Ioke file">
+   </wizard>
+</extension>
+
+<!-- TEXT EDITOR -->
+	<extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Ioke Editor"
+            extensions="ik"
+            icon="icons/kind.png"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="org.uqbar.iokeclipse.editor.IokeEditor"
+            id="org.uqbar.iokeclipse.editor.IokeEditor">
+         <contentTypeBinding
+               contentTypeId="org.uqbar.iokeclipse.editor.iokeContentType">
+         </contentTypeBinding>
+      </editor>
+   </extension>
+   <!-- content type -->
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-extensions=".ik"
+            id="org.uqbar.iokeclipse.editor.iokeContentType"
+            name="Ioke"
+            priority="normal">
+      </content-type>
+      <file-association
+            content-type="org.uqbar.iokeclipse.editor.iokeContentType"
+            file-extensions=".ik">
+      </file-association>
+   </extension>
+   <!-- /content type -->
+   <!-- context -->
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="org.uqbar.iokeclipse.editor.iokeContext"
+            name="iokeContext">
+      </context>
+   </extension>
+   <!-- /context -->
+<!-- /TEXT EDITOR -->
 
 
 </plugin>

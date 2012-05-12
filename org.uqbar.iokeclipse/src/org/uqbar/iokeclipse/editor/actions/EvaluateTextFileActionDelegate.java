@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.editors.text.TextEditor;
+import org.uqbar.iokeclipse.IokeActivator;
 
 /**
  * @author jfernandes

@@ -3,6 +3,9 @@ package org.uqbar.iokeclipse.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.text.TextAttribute;
+import org.eclipse.jface.text.rules.Token;
+import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 import org.uqbar.eclipse.blide.editor.text.partition.LanguageDefinition;
@@ -78,6 +81,7 @@ public class IokeLanguageDefinition extends LanguageDefinition {
 	@Override
 	protected void describeDefaultPartitionTokenRules(RulesBuilder builder) {
 		builder.addRule(new BracketRule(TokenUtils.createToken(SWT.BOLD)));
+		builder.addRule(new WordRule(new KindWordDetector(), new Token(new TextAttribute(builder.getColor(new RGB(188, 143, 143)), null, SWT.BOLD))));
 	}
 
 	@Override

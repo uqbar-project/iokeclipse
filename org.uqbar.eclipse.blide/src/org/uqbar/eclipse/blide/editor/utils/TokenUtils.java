@@ -15,4 +15,8 @@ public class TokenUtils {
 		return new Token(new TextAttribute(manager.getColor(aColor)));
 	}
 	
+	public static Token createToken(int style) {
+		return new Token(new TextAttribute(null, null, style));
+	}
+	
 }

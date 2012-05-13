@@ -1,6 +1,7 @@
 package org.uqbar.eclipse.blide.editor.text.partition;
 
 import org.uqbar.eclipse.blide.editor.text.rule.RulesBuilder;
+import org.uqbar.eclipse.blide.ui.color.ColorManager;
 
 /**
  * Default {@link AbstractRuleBasedPartitionScanner} implementation
@@ -15,7 +16,8 @@ import org.uqbar.eclipse.blide.editor.text.rule.RulesBuilder;
 public class LanguageBasedPartitionerScanner extends AbstractRuleBasedPartitionScanner {
 	private LanguageDefinition language;
 
-	public LanguageBasedPartitionerScanner(LanguageDefinition language) {
+	public LanguageBasedPartitionerScanner(LanguageDefinition language, ColorManager colorManager) {
+		super(colorManager);
 		this.language = language;
 		this.init();
 	}

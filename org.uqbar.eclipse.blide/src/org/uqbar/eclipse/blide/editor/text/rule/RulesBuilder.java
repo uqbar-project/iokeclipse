@@ -16,6 +16,7 @@ import org.eclipse.jface.text.rules.WhitespaceRule;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.uqbar.eclipse.blide.editor.text.detector.KeyWordDetector;
+import org.uqbar.eclipse.blide.editor.text.detector.WhitespaceDetector;
 import org.uqbar.eclipse.blide.ui.color.ColorManager;
 
 /**
@@ -48,6 +49,10 @@ public class RulesBuilder {
 	
 	public RulesBuilder addSingleLineRule(String startSequence, String endSequence, TextAttribute textAttribute) {
 		return this.addSingleLineRule(startSequence, endSequence, new Token(textAttribute));
+	}
+	
+	public RulesBuilder addSingleLineRule(String startSequence, String endSequence, RGB color) {
+		return this.addSingleLineRule(startSequence, endSequence, new TextAttribute(this.colorManager.getColor(color)));
 	}
 	
 	public RulesBuilder addSingleLineRule(String startSequence, String endSequence, Color color) {
@@ -86,6 +91,10 @@ public class RulesBuilder {
 		return this.getRules().toArray(PREDICATE_RULES_EMPTY_ARRAY);
 	}
 
+	public RulesBuilder addWhitespaceRule() {
+		return this.addWhitespaceRule(new WhitespaceDetector());
+	}
+	
 	public RulesBuilder addWhitespaceRule(IWhitespaceDetector whitespaceDetector) {
 		return this.addRule(new WhitespaceRule(whitespaceDetector));
 	}

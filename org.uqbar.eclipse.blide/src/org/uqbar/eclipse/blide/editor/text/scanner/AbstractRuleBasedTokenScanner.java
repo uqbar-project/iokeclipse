@@ -9,8 +9,13 @@ import org.uqbar.eclipse.blide.ui.color.ColorManager;
  * @author jfernandes
  */
 public abstract class AbstractRuleBasedTokenScanner extends RuleBasedScanner {
+	private final ColorManager manager;
 
 	public AbstractRuleBasedTokenScanner(ColorManager manager) {
+		this.manager = manager;
+	}
+
+	protected void init() {
 		RulesBuilder builder = new RulesBuilder(manager);
 		this.addRules(manager, builder);
 		this.setRules(builder.buildIRuleArray());

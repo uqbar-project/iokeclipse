@@ -1,11 +1,11 @@
 package org.uqbar.iokeclipse.editor;
 
+import static org.uqbar.eclipse.blide.editor.utils.TokenUtils.bold;
+import static org.uqbar.eclipse.blide.editor.utils.TokenUtils.color;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.text.TextAttribute;
-import org.eclipse.jface.text.rules.Token;
-import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 import org.uqbar.eclipse.blide.editor.text.partition.LanguageDefinition;
@@ -21,7 +21,7 @@ import org.uqbar.eclipse.blide.editor.utils.TokenUtils;
  */
 public class IokeLanguageDefinition extends LanguageDefinition {
 	public final static String PARTITION_COMMENT = "__ioke_comment";
-		public final static RGB PARTITION_COMMENT_COLOR = new RGB(0, 139, 69);
+		public final static RGB PARTITION_COMMENT_COLOR = new RGB(63, 127, 95);
 	public final static String PARTITION_STRING = "__ioke_string";
 		public final static RGB PARTITION_STRING_COLOR = new RGB(42, 0, 255);
 	private List<LanguagePartition> partitions = new ArrayList<LanguagePartition>();
@@ -61,7 +61,7 @@ public class IokeLanguageDefinition extends LanguageDefinition {
 				new PartitionRuleDirector() {
 					@Override
 					public void describe(RulesBuilder builder) {
-						builder.addSingleLineRule("#{", "}", new RGB(0, 104, 139));
+						builder.addSingleLineRule("#{", "}", new RGB(127, 159, 191));
 					}
 				}
 		);
@@ -80,8 +80,10 @@ public class IokeLanguageDefinition extends LanguageDefinition {
 	
 	@Override
 	protected void describeDefaultPartitionTokenRules(RulesBuilder builder) {
+		builder.addWhitespaceRule();
 		builder.addRule(new BracketRule(TokenUtils.createToken(SWT.BOLD)));
-		builder.addRule(new WordRule(new KindWordDetector(), new Token(new TextAttribute(builder.getColor(new RGB(188, 143, 143)), null, SWT.BOLD))));
+		builder.addWordRule(new KindWordDetector(), color(127, 0, 85));
+		builder.addKeyWordsRules(color(16, 96, 3).and(bold()), "self");
 	}
 
 	@Override

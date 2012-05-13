@@ -13,10 +13,12 @@ import org.eclipse.jface.text.rules.IWordDetector;
 import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WhitespaceRule;
+import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.uqbar.eclipse.blide.editor.text.detector.KeyWordDetector;
 import org.uqbar.eclipse.blide.editor.text.detector.WhitespaceDetector;
+import org.uqbar.eclipse.blide.editor.utils.TokenBuilder;
 import org.uqbar.eclipse.blide.ui.color.ColorManager;
 
 /**
@@ -98,22 +100,35 @@ public class RulesBuilder {
 	public RulesBuilder addWhitespaceRule(IWhitespaceDetector whitespaceDetector) {
 		return this.addRule(new WhitespaceRule(whitespaceDetector));
 	}
+	
+	// ***************************************
+	// ** keywords
+	// ***************************************	
 
-	public RulesBuilder addKeywordsRule(IWordDetector wordDetector, IToken defaultToken, Color color, int fontStyle, String... keywords) {
-		CombinedWordRule combinedWordRule = new CombinedWordRule(wordDetector, defaultToken);
-			
+	public void addKeyWordsRules(RGB color, int style, String... keywords) {
+		this.addKeywordsRule(this.getColor(color), style, keywords);
+	}
+	
+	public RulesBuilder addKeywordsRule(Color color, int fontStyle, String... keywords) {
+		return this.addKeywordsRule(new Token(new TextAttribute(color, null, fontStyle)), keywords);
+	}
+	
+	public RulesBuilder addKeyWordsRules(TokenBuilder tokenBuilder, String... keywords) {
+		return this.addKeywordsRule(tokenBuilder.build(this.colorManager), keywords);
+	}
+	
+	protected RulesBuilder addKeywordsRule(IToken keyWordToken, String... keywords) {
+		return this.addKeywordsRule(new KeyWordDetector(), keyWordToken, keywords);
+	}
+	
+	protected RulesBuilder addKeywordsRule(IWordDetector wordDetector, IToken keyWordToken, String... keywords) {
+		CombinedWordRule combinedWordRule = new CombinedWordRule(wordDetector);
 		CombinedWordRule.WordMatcher wordRule = new CombinedWordRule.WordMatcher();
-		IToken keyWordToken = new Token(new TextAttribute(color, null, fontStyle));
 		for (String keyword : keywords) {
 			wordRule.addWord(keyword, keyWordToken);
 		}
 		combinedWordRule.addWordMatcher(wordRule);
-
 		return this.addRule(combinedWordRule);
-	}
-
-	public void addKeyWordsRules(String[] keywords, IToken defaultToken, RGB color, int style) {
-		this.addKeywordsRule(new KeyWordDetector(), defaultToken, getColor(color), style, keywords);
 	}
 
 	public KeyWordRulesBuilder keyWordsRules(IToken defaultToken) {
@@ -122,6 +137,10 @@ public class RulesBuilder {
 
 	public Color getColor(RGB color) {
 		return this.colorManager.getColor(color);
+	}
+
+	public RulesBuilder addWordRule(IWordDetector wordDetector, TokenBuilder tokenBuilder) {
+		return this.addRule(new WordRule(wordDetector, tokenBuilder.build(this.colorManager)));
 	}
 	
 }

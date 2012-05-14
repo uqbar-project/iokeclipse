@@ -83,7 +83,8 @@ public class IokeLanguageDefinition extends LanguageDefinition {
 		builder.addWhitespaceRule();
 		builder.addRule(new BracketRule(TokenUtils.createToken(SWT.BOLD)));
 		builder.addWordRule(new KindWordDetector(), color(127, 0, 85));
-		builder.addKeyWordsRules(color(16, 96, 3).and(bold()), "self");
+		builder.addWordRule(new MessageWordDetector(), color(99, 66, 0));
+		builder.addKeyWordsRules(color(16, 96, 3).and(bold()), "self", "@");
 	}
 
 	@Override

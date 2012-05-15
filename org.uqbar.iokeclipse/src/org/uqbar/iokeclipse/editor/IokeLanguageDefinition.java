@@ -14,6 +14,7 @@ import org.uqbar.eclipse.blide.editor.text.partition.PartitionRuleDirector;
 import org.uqbar.eclipse.blide.editor.text.rule.BracketRule;
 import org.uqbar.eclipse.blide.editor.text.rule.RulesBuilder;
 import org.uqbar.eclipse.blide.editor.utils.TokenUtils;
+import org.uqbar.iokeclipse.IokeActivator;
 
 /**
  * 
@@ -85,6 +86,8 @@ public class IokeLanguageDefinition extends LanguageDefinition {
 		builder.addWordRule(new KindWordDetector(), color(127, 0, 85));
 		builder.addWordRule(new MessageWordDetector(), color(99, 66, 0));
 		builder.addKeyWordsRules(color(16, 96, 3).and(bold()), "self", "@");
+		// obtenerlas dinamicamente del DefaultBehavior FlowControl ??
+		builder.addKeyWordsRules(color(175, 175, 175).and(bold()), "nil", "true", "false", "if", "until", "while", "loop", "let", "do", "ensure", "break", "continue", "kind", "return", "unless", "while", "with");
 	}
 
 	@Override

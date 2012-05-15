@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.editors;bundle-version="3.7.0",
  org.eclipse.core.resources;bundle-version="3.7.100",
  org.eclipse.ui.ide,
- org.uqbar.eclipse.blide;bundle-version="1.0.0"
+ org.uqbar.eclipse.blide;bundle-version="1.0.0",
+ org.eclipse.search;bundle-version="3.7.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/ioke.jar,

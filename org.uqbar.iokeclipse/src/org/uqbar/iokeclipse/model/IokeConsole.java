@@ -3,13 +3,12 @@ package org.uqbar.iokeclipse.model;
 import ioke.lang.Runtime;
 import ioke.lang.exceptions.ControlFlow;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.management.RuntimeErrorException;
 
 import org.uqbar.iokeclipse.IokeActivator;
 
@@ -29,6 +28,16 @@ public class IokeConsole extends OutputStream {
 		this.checkMaxToCut();
 		buffer.append(Character.toString((char) b));
 		this.fireChanged();
+	}
+	
+	public Object evaluate(File file) throws ControlFlow {
+		try {
+			Object result = this.getRuntime().evaluateFile(file, this.getRuntime().message, this.getRuntime().ground);
+			this.write((result + "\n").getBytes());
+			return result;
+		} catch (IOException e) {
+			throw new RuntimeException("Error while writing the result to console", e);
+		}
 	}
 	
 	public Object evaluate(String text) throws ControlFlow {

@@ -15,7 +15,7 @@ public class KindWordDetector implements IWordDetector {
 
 	@Override
 	public boolean isWordPart(char c) {
-		return c != ' ' && Character.isJavaIdentifierPart(c);
+		return Character.isLetter(c);
 	}
 
 }

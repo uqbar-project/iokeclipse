@@ -2,6 +2,8 @@ package org.uqbar.iokeclipse.editor.actions;
 
 import ioke.lang.exceptions.ControlFlow;
 
+import java.io.File;
+
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
@@ -23,6 +25,14 @@ public abstract class AbstractEvaluateIokeActionDelegate extends ActionDelegate 
 	protected void evaluate(String text) {
 		try {
 			IokeActivator.getDefault().getConsole().evaluate(text);
+		} catch (ControlFlow e) {
+			throw new RuntimeException("Error while evaluating code: " + e.getMessage(), e);
+		}
+	}
+	
+	protected void evaluate(File file) {
+		try {
+			IokeActivator.getDefault().getConsole().evaluate(file);
 		} catch (ControlFlow e) {
 			throw new RuntimeException("Error while evaluating code: " + e.getMessage(), e);
 		}

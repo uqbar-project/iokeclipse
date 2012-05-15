@@ -46,7 +46,6 @@ public class CombinedWordRule implements IRule {
 	 * Word matcher, that associates matched words with tokens.
 	 */
 	public static class WordMatcher {
-
 		/** The table of predefined words and token for this matcher */
 		private Map fWords= new HashMap();
 
@@ -59,7 +58,6 @@ public class CombinedWordRule implements IRule {
 		public void addWord(String word, IToken token) {
 			Assert.isNotNull(word);
 			Assert.isNotNull(token);
-
 			fWords.put(new CharacterBuffer(word), token);
 		}
 
@@ -71,9 +69,10 @@ public class CombinedWordRule implements IRule {
 		 * @return the token or <code>null</code> if none is associated by this matcher
 		 */
 		public IToken evaluate(ICharacterScanner scanner, CharacterBuffer word) {
-			IToken token= (IToken) fWords.get(word);
-			if (token != null)
+			IToken token = (IToken) fWords.get(word);
+			if (token != null) {
 				return token;
+			}
 			return Token.UNDEFINED;
 		}
 

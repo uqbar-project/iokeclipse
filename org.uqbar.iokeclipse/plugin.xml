@@ -292,6 +292,30 @@
             name="iokeContext">
       </context>
    </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.uqbar.iokeclipse.actionSet"
+            label="Sample Action Set"
+            visible="true">
+         <menu
+               id="sampleMenu"
+               label="&amp;Ioke">
+            <separator
+                  name="sampleGroup">
+            </separator>
+         </menu>
+         <action
+               class="org.uqbar.iokeclipse.actions.EvaluateEditorContentAction"
+               icon="icons/run_icon.png"
+               id="org.uqbar.iokeclipse.actions.evaluate"
+               label="&amp;Evaluate"
+               menubarPath="sampleMenu/sampleGroup"
+               toolbarPath="sampleGroup"
+               tooltip="Evaluate File">
+         </action>
+      </actionSet>
+   </extension>
    <!-- /context -->
 <!-- /TEXT EDITOR -->
 
